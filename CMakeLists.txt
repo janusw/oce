@@ -35,6 +35,7 @@ set(OCE_ABI_VERSION ${OCE_ABI_SOVERSION}.0.0)
 
 # Set the minimum version of cmake required to 2.6
 cmake_minimum_required( VERSION 2.6 )
+cmake_policy( VERSION 3.0 )
 
 # Define helper macro option_with_default
 macro( option_with_default OPTION_NAME OPTION_STRING OPTION_DEFAULT )
@@ -776,6 +777,10 @@ if( OCE_EXTRA_WARNINGS)
 		#TODO
 	endif(BORLAND)
 endif(OCE_EXTRA_WARNINGS)
+
+if (CMAKE_COMPILER_IS_GNUCXX)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++98")
+endif()
 
 ################################################
 # Define output path for generated libraries:  #
