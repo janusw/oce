@@ -216,7 +216,7 @@ void OpenGl_GraphicDriver::Redraw (const Graphic3d_CView& ACView,
     else
       aCView->WS->RedrawArea(ACView, ACUnderLayer, ACOverLayer, x, y, width, height);*/
     // Always do full redraw
-    aCView->WS->Redraw(ACView, ACUnderLayer, ACOverLayer);
+    aCView->WS->Redraw(ACView, &ACUnderLayer, &ACOverLayer);
   }
 }
 

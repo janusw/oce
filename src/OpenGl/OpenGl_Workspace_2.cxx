@@ -790,8 +790,8 @@ Standard_Boolean OpenGl_Workspace::Print
 
 //redrawView
 void OpenGl_Workspace::Redraw1 (const Graphic3d_CView& ACView,
-                                const Aspect_CLayer2d& ACUnderLayer,
-                                const Aspect_CLayer2d& ACOverLayer,
+                                const Aspect_CLayer2d* ACUnderLayer,
+                                const Aspect_CLayer2d* ACOverLayer,
                                 const int aswap)
 {
   if (myDisplay.IsNull() || myView.IsNull())

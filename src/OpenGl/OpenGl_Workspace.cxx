@@ -542,8 +542,8 @@ Handle(OpenGl_Texture) OpenGl_Workspace::EnableTexture (const Handle(OpenGl_Text
 // purpose  :
 // =======================================================================
 void OpenGl_Workspace::Redraw (const Graphic3d_CView& theCView,
-                               const Aspect_CLayer2d& theCUnderLayer,
-                               const Aspect_CLayer2d& theCOverLayer)
+                               const Aspect_CLayer2d* theCUnderLayer,
+                               const Aspect_CLayer2d* theCOverLayer)
 {
   if (!Activate())
   {

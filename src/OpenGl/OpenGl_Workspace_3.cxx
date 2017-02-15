@@ -83,7 +83,7 @@ void OpenGl_Workspace::ClearImmediatMode (const Graphic3d_CView& theCView,
   glGetBooleanv (GL_DOUBLEBUFFER, &isDoubleBuffer);
   if (!myBackBufferRestored || !myTransientDrawToFront || !isDoubleBuffer)
   {
-    Redraw1 (theCView, *((CALL_DEF_LAYER* )theCView.ptrUnderLayer), *((CALL_DEF_LAYER* )theCView.ptrOverLayer), theToFlush);
+    Redraw1 (theCView, (CALL_DEF_LAYER* )theCView.ptrUnderLayer, (CALL_DEF_LAYER* )theCView.ptrOverLayer, theToFlush);
 
     // After a redraw,
     // Made the back identical to the front buffer.

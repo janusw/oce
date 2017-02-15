@@ -189,8 +189,8 @@ class OpenGl_View : public MMgt_TShared
   void Render (const Handle(OpenGl_PrinterContext)& thePrintContext,
                const Handle(OpenGl_Workspace)&      theWorkspace,
                const Graphic3d_CView&               theCView,
-               const Aspect_CLayer2d&               theCUnderLayer,
-               const Aspect_CLayer2d&               theCOverLayer);
+               const Aspect_CLayer2d*               theCUnderLayer,
+               const Aspect_CLayer2d*               theCOverLayer);
 
 
   void DrawBackground (const Handle(OpenGl_Workspace)& theWorkspace);
@@ -221,7 +221,7 @@ public:
   void RenderStructs (const Handle(OpenGl_Workspace) &AWorkspace);
   void RedrawLayer2d (const Handle(OpenGl_PrinterContext)& thePrintContext,
                       const Graphic3d_CView&               theCView,
-                      const Aspect_CLayer2d&               theCLayer);
+                      const Aspect_CLayer2d*               theCLayer);
 
   Handle(OpenGl_Texture) myTextureEnv;
   Visual3d_TypeOfSurfaceDetail mySurfaceDetail; //WSSurfaceDetail

@@ -760,8 +760,8 @@ void OpenGl_View::DrawBackground (const Handle(OpenGl_Workspace) &AWorkspace)
 void OpenGl_View::Render (const Handle(OpenGl_PrinterContext)& thePrintContext,
                           const Handle(OpenGl_Workspace) &AWorkspace,
                           const Graphic3d_CView& ACView,
-                          const Aspect_CLayer2d& ACUnderLayer,
-                          const Aspect_CLayer2d& ACOverLayer)
+                          const Aspect_CLayer2d* ACUnderLayer,
+                          const Aspect_CLayer2d* ACOverLayer)
 {
   // Store and disable current clipping planes
   const Handle(OpenGl_Context)& aContext = AWorkspace->GetGlContext();
@@ -1212,14 +1212,14 @@ void OpenGl_View::RenderStructs (const Handle(OpenGl_Workspace) &AWorkspace)
 //call_togl_redraw_layer2d
 void OpenGl_View::RedrawLayer2d (const Handle(OpenGl_PrinterContext)& thePrintContext,
                                  const Graphic3d_CView&               ACView,
-                                 const Aspect_CLayer2d&               ACLayer)
+                                 const Aspect_CLayer2d*               ACLayer)
 {
-  if (&ACLayer == NULL
-   || ACLayer.ptrLayer == NULL
-   || ACLayer.ptrLayer->listIndex == 0) return;
+  if (ACLayer == NULL
+   || ACLayer->ptrLayer == NULL
+   || ACLayer->ptrLayer->listIndex == 0) return;
 
-  GLsizei dispWidth  = (GLsizei )ACLayer.viewport[0];
-  GLsizei dispHeight = (GLsizei )ACLayer.viewport[1];
+  GLsizei dispWidth  = (GLsizei )ACLayer->viewport[0];
+  GLsizei dispHeight = (GLsizei )ACLayer->viewport[1];
 
   glMatrixMode( GL_MODELVIEW );
   glPushMatrix ();
@@ -1229,18 +1229,18 @@ void OpenGl_View::RedrawLayer2d (const Handle(OpenGl_PrinterContext)& thePrintCo
   glPushMatrix ();
   glLoadIdentity ();
 
-  if (!ACLayer.sizeDependent)
+  if (!ACLayer->sizeDependent)
     glViewport (0, 0, dispWidth, dispHeight);
 
-  float left = ACLayer.ortho[0];
-  float right = ACLayer.ortho[1];
-  float bottom = ACLayer.ortho[2];
-  float top = ACLayer.ortho[3];
+  float left = ACLayer->ortho[0];
+  float right = ACLayer->ortho[1];
+  float bottom = ACLayer->ortho[2];
+  float top = ACLayer->ortho[3];
 
-  int attach = ACLayer.attach;
+  int attach = ACLayer->attach;
 
   float ratio;
-  if (!ACLayer.sizeDependent)
+  if (!ACLayer->sizeDependent)
     ratio = (float) dispWidth/dispHeight;
   else
     ratio = ACView.DefWindow.dx/ACView.DefWindow.dy;
@@ -1316,13 +1316,13 @@ void OpenGl_View::RedrawLayer2d (const Handle(OpenGl_PrinterContext)& thePrintCo
   glDisable (GL_LIGHTING);
 
   // TODO: Obsolete code, the display list is always empty now, to be removed
-  glCallList (ACLayer.ptrLayer->listIndex);
+  glCallList (ACLayer->ptrLayer->listIndex);
 
   //calling dynamic render of LayerItems
-  if ( ACLayer.ptrLayer->layerData )
+  if ( ACLayer->ptrLayer->layerData )
   {
-    InitLayerProp (ACLayer.ptrLayer->listIndex);
-    ((Visual3d_Layer*)ACLayer.ptrLayer->layerData)->RenderLayerItems();
+    InitLayerProp (ACLayer->ptrLayer->listIndex);
+    ((Visual3d_Layer*)ACLayer->ptrLayer->layerData)->RenderLayerItems();
     InitLayerProp (0);
   }
 
@@ -1334,7 +1334,7 @@ void OpenGl_View::RedrawLayer2d (const Handle(OpenGl_PrinterContext)& thePrintCo
   glMatrixMode( GL_MODELVIEW );
   glPopMatrix ();
 
-  if (!ACLayer.sizeDependent)
+  if (!ACLayer->sizeDependent)
     glViewport (0, 0, (GLsizei) ACView.DefWindow.dx, (GLsizei) ACView.DefWindow.dy);
 
   glFlush ();

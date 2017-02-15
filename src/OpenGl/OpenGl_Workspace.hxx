@@ -116,13 +116,13 @@ public:
 
   //! Redraw the window.
   void Redraw (const Graphic3d_CView& theCView,
-               const Aspect_CLayer2d& theCUnderLayer,
-               const Aspect_CLayer2d& theCOverLayer);
+               const Aspect_CLayer2d* theCUnderLayer,
+               const Aspect_CLayer2d* theCOverLayer);
 
   //! Deprecated. Simply calls Redraw().
   void Update (const Graphic3d_CView& theCView,
-               const Aspect_CLayer2d& theCUnderLayer,
-               const Aspect_CLayer2d& theCOverLayer)
+               const Aspect_CLayer2d* theCUnderLayer,
+               const Aspect_CLayer2d* theCOverLayer)
   {
     Redraw (theCView, theCUnderLayer, theCOverLayer);
   }
@@ -242,8 +242,8 @@ protected:
 
   // TEMPORARY!!!
   void Redraw1 (const Graphic3d_CView& theCView,
-                const Aspect_CLayer2d& theCUnderLayer,
-                const Aspect_CLayer2d& theCOverLayer,
+                const Aspect_CLayer2d* theCUnderLayer,
+                const Aspect_CLayer2d* theCOverLayer,
                 const int theToSwap);
 
   void updateMaterial (const int theFlag);
