@@ -752,7 +752,7 @@ IF( ${PROJECT_NAME}_EXTRA_WARNINGS)
 ENDIF(${PROJECT_NAME}_EXTRA_WARNINGS)
 
 if (CMAKE_COMPILER_IS_GNUCXX)
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++98")
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++98 -fno-delete-null-pointer-checks")
 endif()
 
 ################################################
