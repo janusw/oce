@@ -832,7 +832,7 @@ if (NOT CHECK_BODY_TEMPLATE)
 endif ()
 
 if (CMAKE_COMPILER_IS_GNUCXX)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++98")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++98 -fno-delete-null-pointer-checks")
 endif()
 
 ################################################
