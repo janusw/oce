@@ -845,6 +845,10 @@ if (NOT CHECK_BODY_TEMPLATE)
 	set (OCE_IS_DUPLICATE_UINT32_T TRUE)
 endif ()
 
+if (CMAKE_COMPILER_IS_GNUCXX)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-delete-null-pointer-checks")
+endif()
+
 ################################################
 # Define output path for generated libraries:  #
 # platform/compiler-build_type-bits            #
