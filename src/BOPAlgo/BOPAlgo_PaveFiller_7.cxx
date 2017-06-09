@@ -108,11 +108,11 @@ static void UpdateVertices(const TopoDS_Edge& aE,
     aItPB.Initialize(aLPB);
     for (; aItPB.More(); aItPB.Next()) {
       aPB=aItPB.Value();
-      const Handle(BOPDS_CommonBlock)& aCB=myDS->CommonBlock(aPB);
-      bCB=!aCB.IsNull();
+      const Handle(BOPDS_CommonBlock) *aCB=&myDS->CommonBlock(aPB);
+      bCB=(aCB && !aCB->IsNull());
       if (bCB) {
-        myDS->SortPaveBlocks(aCB);
-        aPB=aCB->PaveBlock1();
+        myDS->SortPaveBlocks(*aCB);
+        aPB=(*aCB)->PaveBlock1();
       }
       //
       if (aMPB.Add(aPB)) {
@@ -123,7 +123,7 @@ static void UpdateVertices(const TopoDS_Edge& aE,
         nSp = SplitEdge(nE, nV1, aT1, nV2, aT2);
         //
         if (bCB) {
-          aCB->SetEdge(nSp);
+          (*aCB)->SetEdge(nSp);
         }
         else {
           aPB->SetEdge(nSp);
